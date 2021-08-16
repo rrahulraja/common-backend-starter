@@ -9,6 +9,8 @@ import { promises as fs } from 'fs'
 import prometheusMiddleware from 'express-prometheus-middleware'
 
 import { expressLogger, logger } from './shared/logger'
+import { blockUnusedMethods, corsMiddleware, registerSecurityMiddleware, contextMiddleware, healthMiddleware, errorMiddleware } from './middlewares'
+import { ErrorObject } from './middlewares/errorMiddleware'
 
 const yaml = require('js-yaml')
 const { PORT, LOG_REQUESTS_RESPONSES, ENVIRONMENT, NODE_ENV, SENTRY_DSN } = process.env
@@ -154,5 +156,85 @@ export default class BaseApplication {
       res.setHeader('X-Frame-Options', 'SAMEORIGIN')
       next()
     })
+
+    registerSecurityMiddleware(this.server)
+    this.server.use(blockUnusedMethods)
+
+    this.server.use(corsMiddleware)
+    this.server.options('*', corsMiddleware)
+
+    this.server.use(contextMiddleware(this.context))
+
+    this.server.use(express.json())
+
+    if (NODE_ENV !== 'test') {
+      this.server.use(
+        prometheusMiddleware({
+          metricsPath: '/metrics',
+          collectDefaultMetrics: true,
+          requestDurationBuckets: [0.1, 0.5, 1, 1.5],
+        }),
+      )
+    }
+
+    if (ENVIRONMENT !== 'prod') {
+      await this.initSwagger()
+    }
+
+    this.server.use(healthMiddleware)
+
+    const routesPath = `${this._appDir}/routes/routes`
+    const { RegisterRoutes } = require(routesPath)
+    RegisterRoutes(this.server)
+
+    // The error handler must be before any other error middleware and after all controllers
+    this.server.use(Sentry.Handlers.errorHandler())
+
+    this.server.use(errorMiddleware(this.serviceName))
+  }
+
+  async initialize(serviceContext?: any): Promise<void> {
+    this.context = {
+      ...this.context,
+      ...serviceContext,
+    }
+
+    this.logger.debug('App is creating server')
+    await this.createServer()
+  }
+
+  async start(): Promise<any> {
+    try {
+      this.logger.debug('App is starting')
+      this.logger.debug(`[http] Trying to start server on ${this.port}`)
+      await this.initialize()
+    } catch (error) {
+      const fatalErrorMessage = `[app] Initialization error, shutdown in ${this.exitTimeout}ms`
+      const serviceName: string = this.serviceName
+      const errorObject: ErrorObject = {
+        serviceName,
+        code: error.code || 'COM-0',
+        message: error.message || fatalErrorMessage,
+        context: error.context || {},
+        originalError: error.originalError || error,
+        httpStatusCode: 500,
+        endpointUrl: 'App intialisation error',
+        inputParams: {},
+      }
+
+      this.logger.error(error)
+      this.logger.fatal(fatalErrorMessage)
+
+      return setTimeout(() => process.exit(1), this.exitTimeout)
+    }
+
+    return new Promise((resolve) =>
+      this.server.listen(this.port, () => {
+        this._isReady = true
+
+        this.logger.info(`[http] Server is listening on port ${this.port}`)
+        resolve(this)
+      }),
+    )
   }
 }
