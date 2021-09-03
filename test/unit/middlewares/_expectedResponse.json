@@ -1,0 +1,28 @@
+{
+    "serviceName": "test",
+    "code": "COR-5",
+    "message": "Confirmation code is invalid.",
+    "context": {
+        "username": "*****",
+        "email": "*****",
+        "encryptedSeed": "*****",
+        "encryptionKey": "*****",
+        "newPassword": "*****",
+        "password": "*****",
+        "seed": "*****",
+        "confirmationCode": "123456"
+    },
+    "originalError": {},
+    "httpStatusCode": 400,
+    "endpointUrl": "/api/v1/users/forgot-password/confirm",
+    "inputParams": {
+        "username": "*****",
+        "email": "*****",
+        "encryptedSeed": "*****",
+        "encryptionKey": "*****",
+        "newPassword": "*****",
+        "password": "*****",
+        "seed": "*****",
+        "otp": "234567"
+    }
+}

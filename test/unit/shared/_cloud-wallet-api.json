@@ -1,0 +1,1690 @@
+{
+    "components": {
+      "examples": {},
+      "headers": {},
+      "parameters": {},
+      "requestBodies": {},
+      "responses": {},
+      "schemas": {
+        "FreeFormObject": {
+          "properties": {},
+          "type": "object",
+          "additionalProperties": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "W3cProof": {
+          "properties": {
+            "type": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "nullable": true
+            },
+            "verificationMethod": {
+              "type": "string"
+            },
+            "proofPurpose": {
+              "type": "string"
+            },
+            "jws": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "verificationMethod",
+            "proofPurpose",
+            "jws"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "W3cCredential": {
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "holder": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "credentialSubject": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "issuanceDate": {
+              "type": "string"
+            },
+            "issuer": {
+              "type": "string"
+            },
+            "expirationDate": {
+              "type": "string",
+              "nullable": true
+            },
+            "proof": {
+              "$ref": "#/components/schemas/W3cProof"
+            }
+          },
+          "required": [
+            "@context",
+            "id",
+            "type",
+            "holder",
+            "credentialSubject",
+            "issuanceDate",
+            "issuer",
+            "proof"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "GetCredentialsOutput": {
+          "properties": {
+            "credentials": {
+              "items": {
+                "$ref": "#/components/schemas/W3cCredential"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "credentials"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "GetCredentialOutput": {
+          "properties": {
+            "credential": {
+              "$ref": "#/components/schemas/W3cCredential"
+            }
+          },
+          "required": [
+            "credential"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SaveCredentialOutput": {
+          "properties": {
+            "credentialIds": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "credentialIds"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SaveCredentialInput": {
+          "properties": {
+            "data": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignCredentialOutput": {
+          "properties": {
+            "signedCredential": {
+              "$ref": "#/components/schemas/W3cCredential"
+            }
+          },
+          "required": [
+            "signedCredential"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "UnsignedW3cCredential": {
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "holder": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "credentialSubject": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "issuanceDate": {
+              "type": "string"
+            },
+            "expirationDate": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "required": [
+            "@context",
+            "id",
+            "type",
+            "holder",
+            "credentialSubject",
+            "issuanceDate"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignCredentialInput": {
+          "properties": {
+            "unsignedCredential": {
+              "$ref": "#/components/schemas/UnsignedW3cCredential"
+            }
+          },
+          "required": [
+            "unsignedCredential"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "W3cPresentation": {
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "type": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "holder": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "verifiableCredential": {
+              "items": {
+                "$ref": "#/components/schemas/W3cCredential"
+              },
+              "type": "array"
+            },
+            "proof": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            }
+          },
+          "required": [
+            "@context",
+            "type",
+            "holder",
+            "verifiableCredential",
+            "proof"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignPresentationOutput": {
+          "properties": {
+            "signedPresentation": {
+              "$ref": "#/components/schemas/W3cPresentation"
+            }
+          },
+          "required": [
+            "signedPresentation"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "UnsignedW3cPresentation": {
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "type": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "holder": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "verifiableCredential": {
+              "items": {
+                "$ref": "#/components/schemas/W3cCredential"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "@context",
+            "type",
+            "holder",
+            "verifiableCredential"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignPresentationInput": {
+          "properties": {
+            "unsignedPresentation": {
+              "$ref": "#/components/schemas/UnsignedW3cPresentation"
+            },
+            "challenge": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "unsignedPresentation",
+            "challenge",
+            "domain"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "LoginOutput": {
+          "properties": {
+            "accessToken": {
+              "type": "string"
+            },
+            "did": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "accessToken",
+            "did"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "LoginInput": {
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username",
+            "password"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignUpOutput": {
+          "properties": {
+            "accessToken": {
+              "type": "string"
+            },
+            "did": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "accessToken",
+            "did"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SdkOptionsInput": {
+          "properties": {
+            "didMethod": {
+              "type": "string",
+              "enum": [
+                "jolo",
+                "elem"
+              ],
+              "nullable": true
+            }
+          },
+          "type": "object",
+          "additionalProperties": false
+        },
+        "MessageParameters": {
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string",
+              "nullable": true
+            },
+            "htmlMessage": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "required": [
+            "message"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignUpInput": {
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/components/schemas/SdkOptionsInput",
+              "nullable": true
+            },
+            "messageParameters": {
+              "$ref": "#/components/schemas/MessageParameters",
+              "nullable": true
+            }
+          },
+          "required": [
+            "username",
+            "password"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ConfirmSignUpOutput": {
+          "properties": {
+            "accessToken": {
+              "type": "string"
+            },
+            "did": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "accessToken",
+            "did"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ConfirmSignUpInput": {
+          "properties": {
+            "token": {
+              "type": "string"
+            },
+            "confirmationCode": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/components/schemas/SdkOptionsInput",
+              "nullable": true
+            }
+          },
+          "required": [
+            "token",
+            "confirmationCode"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ForgotPasswordInput": {
+          "properties": {
+            "username": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ForgotPasswordConfirmInput": {
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "otp": {
+              "type": "string"
+            },
+            "newPassword": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username",
+            "otp",
+            "newPassword"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ChangeUsernameInput": {
+          "properties": {
+            "username": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ChangeUsernameConfirmInput": {
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "confirmationCode": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username",
+            "confirmationCode"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ChangePasswordInput": {
+          "properties": {
+            "oldPassword": {
+              "type": "string"
+            },
+            "newPassword": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "oldPassword",
+            "newPassword"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignInInput": {
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "messageParameters": {
+              "$ref": "#/components/schemas/MessageParameters",
+              "nullable": true
+            }
+          },
+          "required": [
+            "username"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ConfirmSignInOutput": {
+          "properties": {
+            "accessToken": {
+              "type": "string"
+            },
+            "did": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "accessToken",
+            "did"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "ConfirmSignInInput": {
+          "properties": {
+            "token": {
+              "type": "string"
+            },
+            "confirmationCode": {
+              "type": "string"
+            },
+            "issueSignupCredential": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          "required": [
+            "token",
+            "confirmationCode"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignedJwtObject": {
+          "properties": {
+            "header": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "payload": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "signature": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            }
+          },
+          "required": [
+            "header",
+            "payload",
+            "signature"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignJwtOutput": {
+          "properties": {
+            "jwtObject": {
+              "$ref": "#/components/schemas/SignedJwtObject"
+            }
+          },
+          "required": [
+            "jwtObject"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "UnsignedJwtObject": {
+          "properties": {
+            "header": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            },
+            "payload": {
+              "$ref": "#/components/schemas/FreeFormObject"
+            }
+          },
+          "required": [
+            "header",
+            "payload"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        },
+        "SignJwtInput": {
+          "properties": {
+            "jwtObject": {
+              "$ref": "#/components/schemas/UnsignedJwtObject"
+            }
+          },
+          "required": [
+            "jwtObject"
+          ],
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    },
+    "info": {
+      "title": "cloud-wallet-api",
+      "version": "0.6.0",
+      "description": "Affinidi SSIaaS",
+      "license": {
+        "name": "ISC"
+      }
+    },
+    "openapi": "3.0.0",
+    "paths": {
+      "/wallet/credentials": {
+        "get": {
+          "operationId": "GetCredentials",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetCredentialsOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Unauthorized"
+            }
+          },
+          "description": "Get user's credentials.",
+          "tags": [
+            "Wallet"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "post": {
+          "operationId": "StoreCredentials",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SaveCredentialOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Unauthorized"
+            }
+          },
+          "description": "Save credentials\n\nExpected `data` to be an array of VCs to save.\nVC type can be W3C credential or Open Attestation Document\n\n```\nOpenAttestationDocument {\n   version: string\n   data: FreeFormObject\n   signature: {\n     type: string\n     targetHash: string\n     proof: FreeFormObject[]\n     merkleRoot: string\n   }\n}\n```\n\n```\nW3cCredential {\n   '@context': FreeFormObject\n   id: string\n   type: string[]\n   holder: FreeFormObject\n   credentialSubject: FreeFormObject\n   issuanceDate: string\n   issuer: string\n   expirationDate?: string\n   proof: {\n     type?: string\n     created?: string\n     verificationMethod: string\n     proofPurpose: string\n     jws: string\n   }\n}\n```",
+          "tags": [
+            "Wallet"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaveCredentialInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/wallet/credentials/{id}": {
+        "get": {
+          "operationId": "GetCredential",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetCredentialOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Credential not found"
+            }
+          },
+          "description": "Get user's credential by credentialId.",
+          "tags": [
+            "Wallet"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "delete": {
+          "operationId": "DeleteCredential",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Credential not found"
+            }
+          },
+          "description": "Delete user's credential by credentialId.",
+          "tags": [
+            "Wallet"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      },
+      "/wallet/sign-credential": {
+        "post": {
+          "operationId": "SignCredential",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SignCredentialOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Unauthorized"
+            }
+          },
+          "description": "Sign credential.",
+          "tags": [
+            "Wallet"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignCredentialInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/wallet/sign-presentation": {
+        "post": {
+          "operationId": "SignPresentation",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SignPresentationOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "401": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Unauthorized"
+            }
+          },
+          "description": "Sign verifiable presentation.\n\nA VP can be targeted to a specific verifier by using a Linked Data Proof\nthat includes a domain and challenge. This also helps prevent a verifier\nfrom reusing a VP as their own.\n\nParams:\n\n   `unsignedPresentation` of UnsignedW3cPresentation type\n\n   `domain` - can be any string or URI\n\n   `challenge` - should be a randomly generated string\n\nReturns signed verifiable presentation",
+          "tags": [
+            "Wallet"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignPresentationInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/login": {
+        "post": {
+          "operationId": "Login",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LoginOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Incorrect username or password"
+            },
+            "404": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "User not found"
+            }
+          },
+          "description": "Login an existing user into the network.\n\nAs an `username` **arbitrary username** OR **email** OR **phone number** can be used.\n\nValid username examples:\n- great_user\n- great_user@gmail.com\n- +1234567890",
+          "tags": [
+            "User"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/signup": {
+        "post": {
+          "operationId": "SignUp",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/SignUpOutput"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad request"
+            },
+            "409": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "User with the given username already exists"
+            }
+          },
+          "description": "Signs up a new user.\n\nAs an `username` **arbitrary username** OR **email** OR **phone number** can be used.\n\nReturns an object with a `token` for the **confirmSignUp** endpoint OR\nan an object with an `accessToken` and `did` IF **arbitrary username** was provided.",
+          "tags": [
+            "User"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignUpInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/signup/confirm": {
+        "post": {
+          "operationId": "ConfirmSignUp",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ConfirmSignUpOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Confirmation code is invalid"
+            },
+            "404": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "User not found"
+            }
+          },
+          "description": "Confirms sign up of a new user into the network.",
+          "tags": [
+            "User"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfirmSignUpInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/logout": {
+        "post": {
+          "operationId": "Logout",
+          "responses": {
+            "204": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "No Content"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            }
+          },
+          "description": "Signs out user from all devices. It also invalidates all refresh tokens\nissued to a user. The user's current access and Id tokens remain valid\nuntil their expiry. Access and Id tokens expire one hour after they are\nissued.",
+          "tags": [
+            "User"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      },
+      "/users/forgot-password": {
+        "post": {
+          "operationId": "ForgotPassword",
+          "responses": {
+            "204": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "No Content"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Username should be valid email or phone number"
+            },
+            "404": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "User not found"
+            }
+          },
+          "description": "Resets password for the user.",
+          "tags": [
+            "User"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForgotPasswordInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/forgot-password/confirm": {
+        "post": {
+          "operationId": "ForgotPasswordConfirm",
+          "responses": {
+            "204": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "No Content"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Confirmation code is invalid"
+            },
+            "404": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "User not found"
+            }
+          },
+          "description": "Resets password for the user.",
+          "tags": [
+            "User"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForgotPasswordConfirmInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/change-username": {
+        "post": {
+          "operationId": "ChangeUsername",
+          "responses": {
+            "204": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "No Content"
+            },
+            "404": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "User not found"
+            },
+            "409": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "User with the given username already exists"
+            }
+          },
+          "description": "Sets/updates login username.\n\nAs an `username` **email** OR **phone number** can be used.",
+          "tags": [
+            "User"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeUsernameInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/change-username/confirm": {
+        "post": {
+          "operationId": "ChangeUsernameConfirm",
+          "responses": {
+            "204": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "No Content"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Confirmation code is invalid"
+            }
+          },
+          "description": "Confirms changing username with providing OTP.",
+          "tags": [
+            "User"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeUsernameConfirmInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/change-password": {
+        "post": {
+          "operationId": "ChangePassword",
+          "responses": {
+            "204": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "No Content"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad request"
+            }
+          },
+          "description": "Updates user's password",
+          "tags": [
+            "User"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangePasswordInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/sign-in-passwordless": {
+        "post": {
+          "operationId": "SignIn",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            }
+          },
+          "description": "Passwordless sign in - makes login if user exists or sign up otherwise.\n\nAs an `username` **email** OR **phone number** can be used.\n\nReturns an object with a `token` for the **confirmSignIn** endpoint.",
+          "tags": [
+            "User"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/sign-in-passwordless/confirm": {
+        "post": {
+          "operationId": "ConfirmSignIn",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ConfirmSignInOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Confirmation code is invalid"
+            }
+          },
+          "description": "Confirms passwordless sign in to the network.\n\nParams:\n\n   token - received from the **signIn** endpoint\n\n   confirmationCode - OTP code\n\nReturns an object with accessToken and DID",
+          "tags": [
+            "User"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfirmSignInInput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/utilities/sign-jwt": {
+        "post": {
+          "operationId": "SignJwt",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SignJwtOutput"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {}
+              },
+              "description": "Unauthorized"
+            }
+          },
+          "description": "Sign JWT object.",
+          "tags": [
+            "Utilities"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Api-Key",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignJwtInput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "servers": [
+      {
+        "url": "/api/v1"
+      }
+    ]
+  }
+  

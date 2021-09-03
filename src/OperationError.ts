@@ -2,11 +2,11 @@ const { STATUS_CODES } = require('http')
 const pick = require('lodash.pick')
 
 const fs = require('fs')
-const { safeLoad } = require('js-yaml')
+const { load } = require('js-yaml')
 
 const loadYaml = (path: string) => {
   const yaml = fs.readFileSync(path)
-  const object = safeLoad(yaml)
+  const object = load(yaml)
 
   return object
 }
