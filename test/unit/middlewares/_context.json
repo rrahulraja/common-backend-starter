@@ -1,0 +1,11 @@
+{
+    "username": "username", 
+    "email" : "a@b.c", 
+    "newPassword": "newPassword",
+    "password": "password",
+    "encryptedSeed": "encryptedSeed",
+    "encryptionKey": "encryptionKey",
+    "seed": "seed",
+
+    "confirmationCode": "123456"
+}

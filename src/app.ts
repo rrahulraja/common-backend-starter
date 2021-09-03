@@ -95,10 +95,6 @@ export default class BaseApplication {
     return get(this._config, 'publicPaths', [])
   }
 
-  get apiKeyMiddlewareEnabled(): boolean {
-    return get(this._config, 'apiKeyMiddlewareEnabled', false)
-  }
-
   async initSwagger(): Promise<void> {
     const swaggerPath = path.join(this._appDir, '..', 'swagger.json')
     const swaggerData = JSON.parse(await fs.readFile(swaggerPath, { encoding: 'utf-8' }))

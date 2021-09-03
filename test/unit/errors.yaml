@@ -1,0 +1,6 @@
+errors:
+  COM-1:
+    type: NotFound
+    message: >-
+      Did not found.
+    httpStatusCode: 404
